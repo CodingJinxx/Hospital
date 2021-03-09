@@ -3,14 +3,16 @@ using System;
 using Hospital.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    partial class HospitalContextModelSnapshot : ModelSnapshot
+    [Migration("20210309075458_FixedFacilityID")]
+    partial class FixedFacilityID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +98,7 @@ namespace Hospital.Migrations
 
                     b.HasIndex("WardId");
 
-                    b.ToTable("PHYSICIAN_WARD_JT");
+                    b.ToTable("PHYSICIAN_STATION_JT");
                 });
 
             modelBuilder.Entity("Hospital.Models.Ward", b =>
@@ -115,7 +117,7 @@ namespace Hospital.Migrations
 
                     b.Property<int?>("LeadPhysicianId")
                         .HasColumnType("INT")
-                        .HasColumnName("PHYSICIAN_ID");
+                        .HasColumnName("FACILITY_ID");
 
                     b.Property<string>("Name")
                         .IsRequired()

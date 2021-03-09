@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hospital.Models
 {
-    [Table("PHYSICIAN_STATION_JT")]
-    public class PhysicianStation
+    [Table("PHYSICIAN_WARD_JT")]
+    public class PhysicianWard
     {
         [Column("PHYSICIAN_ID", TypeName = "INT")]
         public int PhysicianId { get; set; }

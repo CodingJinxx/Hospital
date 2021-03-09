@@ -3,14 +3,16 @@ using System;
 using Hospital.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    partial class HospitalContextModelSnapshot : ModelSnapshot
+    [Migration("20210309074650_FixedSupervisors")]
+    partial class FixedSupervisors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +80,7 @@ namespace Hospital.Migrations
                     b.ToTable("HOSPITAL_FACILITIES");
                 });
 
-            modelBuilder.Entity("Hospital.Models.PhysicianWard", b =>
+            modelBuilder.Entity("Hospital.Models.PhysicianStation", b =>
                 {
                     b.Property<int>("PhysicianId")
                         .HasColumnType("INT")
@@ -96,7 +98,7 @@ namespace Hospital.Migrations
 
                     b.HasIndex("WardId");
 
-                    b.ToTable("PHYSICIAN_WARD_JT");
+                    b.ToTable("PHYSICIAN_STATION_JT");
                 });
 
             modelBuilder.Entity("Hospital.Models.Ward", b =>
@@ -113,9 +115,8 @@ namespace Hospital.Migrations
                     b.Property<int>("HOSPITAL_FACILITY_ID")
                         .HasColumnType("INT");
 
-                    b.Property<int?>("LeadPhysicianId")
-                        .HasColumnType("INT")
-                        .HasColumnName("PHYSICIAN_ID");
+                    b.Property<int?>("LEAD_PHYSICIAN_ID")
+                        .HasColumnType("INT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -126,7 +127,7 @@ namespace Hospital.Migrations
 
                     b.HasIndex("HOSPITAL_FACILITY_ID");
 
-                    b.HasIndex("LeadPhysicianId")
+                    b.HasIndex("LEAD_PHYSICIAN_ID")
                         .IsUnique();
 
                     b.ToTable("WARDS");
@@ -137,8 +138,7 @@ namespace Hospital.Migrations
                     b.HasBaseType("Hospital.Models.Employee");
 
                     b.Property<int?>("SupervisorId")
-                        .HasColumnType("INT")
-                        .HasColumnName("SUPERVISOR_ID");
+                        .HasColumnType("INT");
 
                     b.HasIndex("SupervisorId");
 
@@ -157,7 +157,7 @@ namespace Hospital.Migrations
                     b.ToTable("PHYSICIANS");
                 });
 
-            modelBuilder.Entity("Hospital.Models.PhysicianWard", b =>
+            modelBuilder.Entity("Hospital.Models.PhysicianStation", b =>
                 {
                     b.HasOne("Hospital.Models.Physician", "Physician")
                         .WithMany()
@@ -186,7 +186,7 @@ namespace Hospital.Migrations
 
                     b.HasOne("Hospital.Models.Physician", "LeadPhysician")
                         .WithOne()
-                        .HasForeignKey("Hospital.Models.Ward", "LeadPhysicianId");
+                        .HasForeignKey("Hospital.Models.Ward", "LEAD_PHYSICIAN_ID");
 
                     b.Navigation("HospitalFacility");
 

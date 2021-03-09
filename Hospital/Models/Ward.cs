@@ -23,7 +23,9 @@ namespace Hospital.Models
         [Column("CARRYING_CAPACITY", TypeName = "INT")]
         public int CarryingCapacity { get; set; }
         
-        [ForeignKey("LEAD_PHYSICIAN_ID")] 
         public Physician LeadPhysician { get; set; }
+        
+        [Column("PHYSICIAN_ID")]
+        public int? LeadPhysicianId { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Hospital.Test
             // Empty Database
             using (var context = factory.CreateDbContext(args))
             {
-                context.Database.ExecuteSqlRaw("DELETE FROM PHYSICIAN_STATION_JT WHERE 1 = 1");
+                context.Database.ExecuteSqlRaw("DELETE FROM PHYSICIAN_WARD_JT WHERE 1 = 1");
                 context.Database.ExecuteSqlRaw("DELETE FROM WARDS WHERE 1 = 1");
                 context.Database.ExecuteSqlRaw("DELETE FROM HOSPITAL_FACILITIES WHERE 1 = 1");
                 context.Database.ExecuteSqlRaw("DELETE FROM EMPLOYEES WHERE 1 = 1");
@@ -61,7 +61,7 @@ namespace Hospital.Test
                 for (int i = 0; i < 5; i++)
                 {
                     var p = context.Physicians.Random(takenPhysicians);
-                    takenPhysicians.Add(context.PhysicianStation.Add(new PhysicianStation()
+                    takenPhysicians.Add(context.PhysicianStation.Add(new PhysicianWard()
                     {
                         Physician = p,
                         Ward = context.Wards.Random(),

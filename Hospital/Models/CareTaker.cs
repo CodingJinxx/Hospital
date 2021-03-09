@@ -5,7 +5,8 @@ namespace Hospital.Models
     [Table("CARE_TAKERS")]
     public class CareTaker : Employee
     {
-        [ForeignKey("SUPERVISOR_ID")]
+        [Column("SUPERVISOR_ID")]
+        public int? SupervisorId { get; set; }
         public CareTaker Supervisor { get; set; }
     }
 }

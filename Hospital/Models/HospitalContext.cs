@@ -9,7 +9,7 @@ namespace Hospital.Models
         public DbSet<Physician> Physicians { get; set; }
         public DbSet<HospitalFacility> HospitalFacilities { get; set; }
         public DbSet<Ward> Wards { get; set; }
-        public DbSet<PhysicianStation> PhysicianStation { get; set; }
+        public DbSet<PhysicianWard> PhysicianStation { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,8 +18,9 @@ namespace Hospital.Models
                 .IsUnique();
 
             modelBuilder.Entity<CareTaker>()
-                .HasOne<CareTaker>(c=> c.Supervisor)
+                .HasOne(c=> c.Supervisor)
                 .WithMany()
+                .HasForeignKey(c => c.SupervisorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<HospitalFacility>()
@@ -35,18 +36,19 @@ namespace Hospital.Models
                 .WithMany();
 
             modelBuilder.Entity<Ward>()
-                .HasOne<Physician>(w => w.LeadPhysician)
-                .WithOne();
+                .HasOne(w => w.LeadPhysician)
+                .WithOne()
+                .HasForeignKey<Ward>(w => w.LeadPhysicianId);
             
-            modelBuilder.Entity<PhysicianStation>()
+            modelBuilder.Entity<PhysicianWard>()
                 .HasKey(p => new {p.PhysicianId, p.WardId});
 
-            modelBuilder.Entity<PhysicianStation>()
+            modelBuilder.Entity<PhysicianWard>()
                 .HasOne<Physician>(p => p.Physician)
                 .WithMany()
                 .HasForeignKey(p => p.PhysicianId);
 
-            modelBuilder.Entity<PhysicianStation>()
+            modelBuilder.Entity<PhysicianWard>()
                 .HasOne<Ward>(p => p.Ward)
                 .WithMany()
                 .HasForeignKey(p => p.WardId);
