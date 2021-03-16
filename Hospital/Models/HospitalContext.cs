@@ -33,7 +33,8 @@ namespace Hospital.Models
 
             modelBuilder.Entity<Ward>()
                 .HasOne<HospitalFacility>(w => w.HospitalFacility)
-                .WithMany();
+                .WithMany()
+                .HasForeignKey(w => w.HospitalFacilityId);
 
             modelBuilder.Entity<Ward>()
                 .HasOne(w => w.LeadPhysician)

@@ -125,7 +125,12 @@ namespace Hospital.Test
 
         public static T Random<T>(this DbSet<T> set) where T : class
         {
-            return set.OrderBy(s => Guid.NewGuid()).Take(1).First(s => true);
+            T value;
+            int setCount = set.AsEnumerable().Count();
+            int toSkip = r.Next(0, set.Count());
+            value = set.Skip(toSkip).Take(1).First();
+         
+            return value;
         }
         
         public static T Random<T>(this DbSet<T> set, List<T> ignore) where T : class
@@ -135,7 +140,7 @@ namespace Hospital.Test
             int tryCount = 0;
             do
             {
-                int toSkip = r.Next(1, set.Count());
+                int toSkip = r.Next(0, set.Count());
                 value = set.Skip(toSkip).Take(1).First();
             } while (ignore.Contains(value) && ++tryCount < setCount * 4);
 

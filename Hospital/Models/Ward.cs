@@ -7,8 +7,10 @@ namespace Hospital.Models
     public class Ward
     {
         [Required]
-        [ForeignKey("HOSPITAL_FACILITY_ID")]
         public HospitalFacility HospitalFacility { get; set; }
+        [Column("HOSPITAL_FACILITY_ID")]
+
+        public int HospitalFacilityId { get; set; }
         
         [Key]
         [Column("WARD_ID", TypeName = "INT")]

@@ -39,7 +39,8 @@ namespace Hospital.Test
 
                 for (int i = 0; i < 10; i++)
                 {
-                    context.CareTakers.Add(Generator.CareTaker(context.CareTakers.Random()));
+                    var supervisor = context.CareTakers.Random();
+                    context.CareTakers.Add(Generator.CareTaker(supervisor));
                     context.SaveChanges();
                 }
 
